@@ -1,3 +1,3 @@
 export const addFavorites = () =>({
-    type: 'ADD_FAVORITE'
+    type: 'ADD_FAVORITE',
 })

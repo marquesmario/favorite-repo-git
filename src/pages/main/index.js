@@ -2,14 +2,26 @@ import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as FavoritesActions from '../../actions/favorites'
+import PropTypes from 'prop-types'
 
 class Main extends Component{
-   state = {
-        repositoryInput: '',
+   static propTypes = {
+        addFavorite: PropTypes.func.isRequired,
+        favorite: PropTypes.arrayOf(PropTypes.shape({
+            id: PropTypes.number,
+            name: PropTypes.string,
+            description: PropTypes.string,
+            url: PropTypes.string,
+        })).isRequired
    };
 
-   handleAddRepository = () =>{
-       this.props.addFavorite();
+    state = {
+        repositoryInput: '',
+    };
+
+   handleAddRepository = (event) =>{
+    event.preventDefault();   
+    this.props.addFavorites();
    }
     render(){
         return(
@@ -23,12 +35,14 @@ class Main extends Component{
                     <button type="submit">Adicionar</button>
                 </form>
                 <ul>
-                    <li>
-                        <p>
-                            <strong>Qualquer coisa temporaria</strong> Qualquer coisa que for adicionado aqui no momento não importa
-                        </p>
-                        <a href="http://github.com">Acessar</a>
-                    </li>
+                    {this.props.favorites.map(favorite => (
+                        <li key={favorite.id}>
+                            <p>
+                                <strong>{favorite.name}</strong> ({favorite.description})
+                            </p>
+                            <a href={favorite.url}>Acessar</a>
+                        </li>
+                    ))}
                 </ul>
             </Fragment>
         )
@@ -41,4 +55,4 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators(FavoritesActions, dispatch);
 
-export default connect(mapStateToProps,mapDispatchToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
