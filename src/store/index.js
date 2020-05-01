@@ -9,7 +9,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 middlewares.push(sagaMiddleware);
 
-const store = process.env.NODE_ENV === 'development'? createStore(reducers, compose(applyMiddleware(...middlewares), console.tron.createEnhancer())): createStore(reducers);
+const store = process.env.NODE_ENV === 'development'? createStore(reducers, compose(applyMiddleware(...middlewares), console.tron.createEnhancer())): createStore(reducers, compose(applyMiddleware(...middlewares)));
 
 sagaMiddleware.run(sagas);
 

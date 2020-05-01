@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 
 class Main extends Component{
    static propTypes = {
-        addFavorite: PropTypes.func.isRequired,
+        addFavoriteRequest: PropTypes.func.isRequired,
         favorite: PropTypes.arrayOf(PropTypes.shape({
             id: PropTypes.number,
             name: PropTypes.string,
@@ -21,7 +21,7 @@ class Main extends Component{
 
    handleAddRepository = (event) =>{
     event.preventDefault();   
-    this.props.addFavorites();
+    this.props.addFavoriteRequest(this.state.repositoryInput);
    }
     render(){
         return(
